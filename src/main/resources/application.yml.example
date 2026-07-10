@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/booking
+    username: your_db_username
+    password: your_db_password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+app:
+  jwt:
+    secret: replace-with-a-long-random-secret-at-least-32-characters
+    expiration-ms: 86400000

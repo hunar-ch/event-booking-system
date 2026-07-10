@@ -35,3 +35,4 @@ build/
 target/
 .idea/
 *.iml
+src/main/resources/application.yml
