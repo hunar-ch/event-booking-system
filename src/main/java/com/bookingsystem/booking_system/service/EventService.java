@@ -5,6 +5,8 @@ import com.bookingsystem.booking_system.dto.EventResponse;
 import com.bookingsystem.booking_system.entity.Event;
 import com.bookingsystem.booking_system.exception.ResourceNotFoundException;
 import com.bookingsystem.booking_system.repository.EventRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,8 +29,8 @@ public class EventService {
         return toResponse(saved);
     }
 
-    public List<EventResponse> getAllEvents() {
-        return eventRepository.findAll().stream().map(this::toResponse).toList();
+    public Page<EventResponse> getAllEvents(Pageable pageable) {
+        return eventRepository.findAll(pageable).map(this::toResponse);
     }
 
     public EventResponse getEvent(Long id) throws Exception {

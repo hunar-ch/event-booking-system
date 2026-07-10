@@ -4,6 +4,8 @@ import com.bookingsystem.booking_system.dto.EventCreateRequest;
 import com.bookingsystem.booking_system.dto.EventResponse;
 import com.bookingsystem.booking_system.service.EventService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +26,10 @@ public class EventController {
     }
 
     @GetMapping
-    public ResponseEntity<List<EventResponse>> getAll() {
-        return ResponseEntity.ok(eventService.getAllEvents());
+    public ResponseEntity<Page<EventResponse>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(eventService.getAllEvents(PageRequest.of(page, size)));
     }
 
     @GetMapping("/{id}")
