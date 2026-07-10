@@ -1,6 +1,5 @@
 package com.bookingsystem.booking_system.service;
 
-import com.bookingsystem.booking_system.dto.BookingRequest;
 import com.bookingsystem.booking_system.entity.Event;
 import com.bookingsystem.booking_system.entity.Seat;
 import com.bookingsystem.booking_system.exception.SeatAlreadyBookedException;
@@ -68,7 +67,7 @@ class BookingServiceConcurrencyTest {
                 try {
                     readyLatch.countDown();
                     startLatch.await(); // all threads wait here, then fire together
-                    bookingService.bookSeat(new BookingRequest(userId, seatId));
+                    bookingService.bookSeat(userId, seatId);
                     successCount.incrementAndGet();
                 } catch (SeatAlreadyBookedException e) {
                     conflictCount.incrementAndGet();

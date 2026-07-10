@@ -35,11 +35,11 @@ public class BookingService {
     }
 
     @Transactional
-    public BookingResponse bookSeat(BookingRequest req) {
+    public BookingResponse bookSeat(Long userId, Long seatId) {
         // Locks the seat, any other concurrent transaction trying to
         // book the same seat will be blocked until we commit/rollback
-        Seat seat = seatRepository.findByIdForUpdate(req.seatId())
-                .orElseThrow(() -> new ResourceNotFoundException("Seat not found: " + req.seatId()));
+        Seat seat = seatRepository.findByIdForUpdate(seatId)
+                .orElseThrow(() -> new ResourceNotFoundException("Seat not found: " + seatId));
 
         // Throwing an exception if seat is already booked
         // causing a rollback
@@ -54,7 +54,7 @@ public class BookingService {
         // Create a booking record
         Booking booking = new Booking();
         booking.setSeat(seat);
-        booking.setUserId(req.userId());
+        booking.setUserId(userId);
         booking.setStatus(BookingStatus.CONFIRMED);
         booking.setCancellableUntil(LocalDateTime.now().plusHours(24)); //cancellation window of 24 hours from booking
         Booking saved = bookingRepository.save(booking);

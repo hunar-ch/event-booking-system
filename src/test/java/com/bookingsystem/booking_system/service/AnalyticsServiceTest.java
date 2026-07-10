@@ -53,8 +53,8 @@ class AnalyticsServiceTest {
         Seat p2 = createSeat(popularEvent, "P2", BigDecimal.valueOf(100));
         createSeat(popularEvent, "P3", BigDecimal.valueOf(100)); // left unbooked
 
-        bookingService.bookSeat(new BookingRequest(1L, p1.getId()));
-        bookingService.bookSeat(new BookingRequest(2L, p2.getId()));
+        bookingService.bookSeat(1L, p1.getId());
+        bookingService.bookSeat(2L, p2.getId());
 
         // Event with 2 seats, 0 booked -> "quiet"
         Event quietEvent = new Event();
